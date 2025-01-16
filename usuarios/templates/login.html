@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'geral/css/usuarios.css' %}">
+{% endblock 'head' %}
+
+{% block 'body' %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Coluna da imagem (lado esquerdo) -->
+        <div class="col-md-2 d-flex justify-content-center bg-img">
+        </div>
+
+        <!-- Coluna do formulário (lado direito) -->
+        <div class="col-md-10 d-flex justify-content-center bg-color-dark form-auth">
+            <div class="container-form">
+                <!-- Título/logo -->
+                <h1 class="text-logo">Reco.Facial</h1>
+                <h1>Entrar</h1>
+
+                <!-- Mensagens de alerta (caso existam) -->
+                {% if messages %}
+                    <br>
+                    {% for message in messages %}
+                        <section class="alert {{ message.tags }}">
+                            {{ message }}
+                        </section>
+                    {% endfor %}
+                {% endif %}
+                <br>
+                {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+                <!-- Formulário de login -->
+                <form action="{% url 'logar' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label>Username</label>
+                    <input type="text" class="form-control input-pers" name="username" placeholder="Digite seu username">
+                    <br>
+                    <label>Envie uma imagem</label>
+                    <input type="file" class="form-control input-pers" name="image" accept="image/*">
+                    <br>
+                    <div class="centralizar">
+                        <input type="submit" class="btn btn-indigo" value="Entrar">
+                        <!-- Link para o cadastro, se desejar -->
+                        <a href="{% url 'cadastro' %}" class="texto">Ainda não possui conta? Cadastre-se</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock 'body' %}
